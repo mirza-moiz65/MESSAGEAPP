@@ -1,0 +1,37 @@
+<h1>New Chat Room</h1>
+
+<%# <%= render 'form', chat_room: @chat_room %>
+<%#= render 'form', {chat_room: @chat_room, url: chat_rooms_path, method: :post} %>
+<% @users.each do |user| %>
+  </br>  <%= user.email %>
+<% end %>
+
+<%= form_for @chat_room do |form| %>
+  <% if @chat_room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
+
+      <ul>
+        <% @chat_room.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+<% @users.each do |user| %>
+  <%= label_tag user.email %>
+  <%= check_box_tag "users[#{user.id}]" %> <br />
+<% end %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+
+<%= link_to 'Back', chat_rooms_path %>
