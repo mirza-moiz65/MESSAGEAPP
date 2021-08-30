@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @chat_room.name %>
+
+  </br>
+  <strong>Users:</strong>
+  <% @chat_room.users.each do |user| %>
+    </br>
+    <%= user.email  %> 
+    <% if current_user.id == user.id %>
+      <%= '(You)' %>
+    <% end %>
+  <% end %>
+  </br>
+
+  <% label = "New Message" %>
+
+  <strong>Messages:</strong>
+  <% @chat_room.messages.each do |messag| %>
+    </br>
+    <% if messag.user.id == current_user.id %>
+      <%= 'You: ' %>
+    <% else %>
+      <%= messag.user.email  %>
+      <%= ': ' %>
+    <% end %>
+    <%= messag.body  %> 
+  <%# <button onclick="change_label(<% messag.id)"> reply</button> %>
+  <%= link_to messag.id, chat_room_message_path(messag), :onclick => "change_label(#{messag.id})" %>
+  <% end %>
+  
+  <% @message = @chat_room.messages.build %>
+  <%= form_with model: @message, url: chat_room_messages_path(@messages, chat_room_id: @chat_room.id), method: :post do |form| %>
+    <div>
+      <p id="label">New Message</p>
+      
+      <br>
+      <%= form.text_area :body %>
+    </div>
+
+    <div>
+      <%= form.submit "send"%>
+    </div>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_chat_room_path(@chat_room) %> |
+<%= link_to 'Back', chat_rooms_path %>
+
+<%# <script type='text/javascript'>
+function change_label(labeell) {
+  document.getElementById("label").innerHTML = labeell ;
+}
+function myFunction() {
+  document.getElementById("demo").innerHTML = "red";
+}
+</script> %>

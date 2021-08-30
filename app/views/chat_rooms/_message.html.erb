@@ -1,0 +1,8 @@
+ </br>
+    <% if messagge.user.id == current_user.id %>
+      <%= 'You: ' %>
+    <% else %>
+      <%= messagge.user.email  %>
+      <%= ': ' %>
+    <% end %>
+    <%= messagge.body  %> 

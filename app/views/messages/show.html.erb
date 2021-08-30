@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @message.body %>
+
+  </br>
+  <strong>Users:</strong>
+  
+  </br>
+<%= link_to 'Show', chat_room_path(id: @message.chat_room_id) %></td>
+<%= link_to 'Back', chat_rooms_path %>
